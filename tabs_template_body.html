@@ -1,0 +1,254 @@
+<!-- from https://bootsnipp.com/snippets/5Mk0W --> 
+
+<!-- box taken from https://en.wikipedia.org/wiki/Necker_cube -->
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mt-3 tab-card">
+        <div class="card-header tab-card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Text</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Animation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">Code</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+            <h5 class="card-title">Adding to the front of the array </h5>
+            <img style="width: 50%; display: inline-block; float: left; margin-right: 5px;" src="media/sample_diagram.png"/>
+              <p>This is some generic text next to some generic image of some data structure stuff, in reality this might be a description of adding something to the front of an array, and the diagram would give an illustration of that.</p>
+              <p>Sed malesuada neque ex. Nunc bibendum dui non orci maximus, eu rutrum augue eleifend. Donec tincidunt luctus sapien, eu aliquam turpis molestie vitae. Sed malesuada neque ex. Nunc bibendum dui non orci maximus, eu rutrum augue eleifend. Donec tincidunt luctus sapien, eu aliquam turpis molestie vitae. </p>
+              <h5 style="margin-top: 30px; margin-bottom: 5px;" class="card-title">Adding to the middle of the array </h5>
+              <img style="width: 50%; display: inline-block; float: right; margin-right: 5px;" src="media/sample_diagram.png"/>
+            <p>Sed malesuada neque ex. Nunc bibendum dui non orci maximus, eu rutrum augue eleifend. Donec tincidunt luctus sapien, eu aliquam turpis molestie vitae. Ut purus lorem, suscipit et lacus sit amet, ultricies fermentum mi. Nam aliquet felis pulvinar lectus porta pellentesque. Aliquam ut felis quis metus molestie vestibulum at ut orci.Sed malesuada neque ex. </p>
+              <p>Nunc bibendum dui non orci maximus, eu rutrum augue eleifend. Donec tincidunt luctus sapien, eu aliquam turpis molestie vitae. Ut purus lorem, suscipit et lacus sit amet, ultricies fermentum mi. Nam aliquet felis pulvinar lectus porta pellentesque. Aliquam ut felis quis metus molestie vestibulum at ut orci.</p>
+              <p>(Image from: <a>https://curiosityandcode.tumblr.com/post/125101560156/introduction-to-data-structures</a>)</p>
+          </div>
+          <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+            <h5 class="card-title">Adding to the front of the array</h5>
+            <p class="card-text">Animation - in actual would be done cleaner/not through canvas. (Animation done by myself) Sound is just a sample sound, in reality it would be some sort of explanation of the animationNote: Sound toggle only affects the next play of animation (does not turn off the sound immediately, which it would in the actual website).</p> 
+            <canvas id="addCanvas">ArrayListAdd</canvas>
+            <button id="animButton" href="javascript:doAnimation();playAnimationVoice();">Play Animation</button>
+            <button id="soundButton">Sound On/Off</button>
+            <img class="array_image" id="number_array" style="display:none;" src="media/row_of_squares_with_numbers.jpg" alt="array of length 5"  />
+            <audio id="helpVoice" src="media/sample_sound.mp3"></audio>
+            <img id="sound_false" src="media/sound_off.png" style="display: none; width: 20%;"/>
+            <img id="sound_true" src="media/sound_on.png" style="display: inline-block; width: 20%;"/>
+              <p>Image sources:</p>
+              <p> sound off: https://freeiconshop.com/icon/sound-off-icon-glyph/</p>
+              <p>sound on: https://icon-library.net/icon/sound-icon-png-23.html</p>
+              <p>array taken from https://topdrawer.aamt.edu.au/Reasoning/Assessment/Assessment-approaches/Observation/Rows-of-squares</p>
+              <p>Audio from: https://file-examples.com/index.php/sample-audio-files/sample-mp3-download/</p>
+<!---          
+sound off: https://freeiconshop.com/icon/sound-off-icon-glyph/
+sound on: https://icon-library.net/icon/sound-icon-png-23.html
+--->
+          </div>
+          <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+            <h5 class="card-title">What's the code?</h5>
+              <img src="media/sample_code.jpg" style="float: right; width: 50%; height: 70%;"/>
+            <p class="card-text">Code file with example of implementation. In reality the code to the right would be an example implementation of the add operation for arraylist and this text would explain exactly what's going on</p>    
+              <p>Image from: https://www.forbes.com/sites/rajatbhageria/2017/09/10/is-learning-how-to-code-still-worth-it/#4aced45575a1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    // draws the chosen image on the canvas
+    var c = document.getElementById("addCanvas");
+    var ctx = c.getContext("2d");
+    var array_img = document.getElementById("number_array");
+    var soundOn = true;
+    function buildCanvas()
+    {
+        drawArray();
+        drawObject(34, c.height-51, "A");
+        drawObject(34*2.5, c.height-51, "B");
+        drawObject(10,10,"C");
+    }
+    
+    function drawArray()
+    {
+        ctx.drawImage(array_img, 25, c.height-60, 250,50);
+    }
+    function drawObject(x,y, label){
+        ctx.strokeStyle = "black";
+        ctx.beginPath();
+        ctx.rect(x, y, 35, 35);
+        ctx.stroke();
+        ctx.font = "Arial";
+        ctx.strokeText("Sample", x+1,y+10);
+        ctx.strokeText("Object", x+1,y+20);
+        ctx.strokeText(label, x+15, y+30);
+    }
+    
+    soundButton.onclick = function()
+    {
+        soundOn = !soundOn;
+        let icon = document.getElementById("sound_"+soundOn);
+        icon.style.display = "inline-block";
+        icon = document.getElementById("sound_"+!soundOn);
+        icon.style.display = "none";
+    }
+    animButton.onclick = function()
+    {
+        document.getElementById("animButton").disabled = true;
+        var speed = 1;
+        var ogBx = 34*2.5;
+        var By = c.height-51;
+        var curBx = ogBx;
+        var finalBx = 34*4-4;
+        var partOneDone = false;
+        var ogAx = 34;
+        var Ay = c.height-51;
+        var curAx = ogAx;
+        var finalAx = ogBx;
+        var partTwoDone = false;
+        var curCy = 10;
+        var curCx = 10;
+        var finalCy = c.height - 51;
+        var finalCx = ogAx;
+                //copying B to spot 2
+        if(soundOn === true)
+            {
+               document.getElementById("helpVoice").play(); 
+                
+            }
+        let copy = setInterval(function(){
+            // copying over the B object
+            ctx.clearRect(0,0,c.width,c.height);
+            drawArray();
+            drawObject(34, c.height-51, "A");
+            drawObject(34*2.5, c.height-51, "B");
+            drawObject(10,10,"C");
+            if(curBx < finalBx && partOneDone == false)
+                {
+                    //console.log("In the if");
+                    drawObject(curBx+speed, By, "B");
+                    curBx = curBx+speed;
+                }
+            else{
+                drawObject(curBx, By, "B");
+                partOneDone = true;
+            }
+            // if part one is done, copies over the A object
+            if(partOneDone == true && partTwoDone == false)
+                {
+                    ctx.clearRect(0,0,c.width,c.height);
+                    drawArray();
+                    drawObject(34, c.height-51, "A");
+                    drawObject(curBx, c.height-51, "B");
+                    drawObject(10,10,"C");
+                    if(curAx < finalAx)
+                    {
+                        drawObject(curAx+speed, Ay, "A");
+                        curAx = curAx+speed;
+                    }
+                    else
+                    {
+                        drawObject(curAx,Ay, "A");
+                        partTwoDone = true;
+                        return;
+                    }
+                }
+            // if A got copied over, now needs to copy over C
+            if(partTwoDone == true)
+                {
+                    ctx.clearRect(0,0,c.width,c.height);
+                    drawArray();
+                    drawObject(curAx, c.height-51, "A");
+                    drawObject(curBx, c.height-51, "B");
+                    var done = true;
+                    if(curCx < finalCx)
+                        {
+                            curCx = curCx+speed;
+                            done = false;
+                        }
+                    if(curCy < finalCy)
+                        {
+                            curCy = curCy+speed*2;
+                            done = false;
+                        }
+                    drawObject(curCx, curCy, "C");
+                    if(done == true)
+                        {
+                            clearInterval(copy);
+                            document.getElementById("animButton").disabled = false;
+                            return;
+                        }
+                }
+        }, 20);
+         
+    }
+
+    /*
+    animButton.onclick = function(){
+        //from https://javascript.info/js-animation
+        var box = document.getElementById("box");
+        let start = Date.now(); // remember start time
+
+        let timer = setInterval(function() {
+        // how much time passed from the start?
+        let timePassed = Date.now() - start;
+
+        if (timePassed >= 1000) {
+            clearInterval(timer); // finish the animation after 2 seconds
+            return;
+        }
+
+        // draw the animation at the moment timePassed
+        draw(timePassed);
+
+        }, 20);
+
+        // as timePassed goes from 0 to 2000
+        // left gets values from 0px to 400px
+        function draw(timePassed) {
+            box.style.height = timePassed / 5 + 'px';
+        }
+    }
+    */
+
+</script>
+
+<!-- https://bootsnipp.com/snippets/Alj0E -->
+<!--
+<div class="container">
+	<div class="row">
+		<h2>Create your snippet's HTML, CSS and Javascript in the editor tabs</h2>
+	</div>
+</div>
+
+<nav>
+					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+						<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
+					</div>
+				</nav>
+				<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+					</div>
+					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+					</div>
+					<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+					</div>
+					<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+						Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+					</div>
+				</div>
+-->

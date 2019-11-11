@@ -1,0 +1,213 @@
+<!-- https://www.sitepoint.com/simple-javascript-quiz/ -->
+<div class="prevButton" style="width: 100%;" >
+    <a href="javascript:switchPage('arrayListRemove')">Previous</a> 
+</div>
+<div><h2>Quiz Yourself!</h2></div>
+<div id=arrayListQuizContainer>Container</div>
+<div class="submitBtn"><button id="submitBtn" style="">Submit Quiz</button></div>
+<div class="prevButton" >
+    <a href="javascript:switchPage('arrayListRemove')">Previous</a> 
+</div>
+<!--
+<button id="resetBtn">Reset Quiz</button> 
+-->
+<script>
+                
+            // javascript quiz https://www.sitepoint.com/simple-javascript-quiz/
+            const quizContainer = document.getElementById('arrayListQuizContainer');
+            const resultsContainer = document.getElementById('results');
+            const submitButton = document.getElementById('submitBtn');
+            const resetButton = document.getElementById('resetBtn');
+            
+            // questions for the quiz
+            const myQuestions = [
+            {
+                num: 1,
+                question: "Who is the strongest?",
+                answers: {
+                    a: "Superman",
+                    b: "The Terminator",
+                    c: "Waluigi, obviously",
+                    d: "Test D"
+                },
+                hint: "WAAAAAAAA",
+                correctAnswer: "c",
+                correctNum: 2
+            },
+            {
+                num: 2,
+                question: "What is the best site ever created?",
+                answers: {
+                    a: "This one",
+                    b: "Stirling University",
+                    c: "This one but the letter c",
+                    d: "Test D"
+                },
+                hint: "Can you see it?",
+                correctAnswer: "c",
+                correctNum: 2
+            },
+            {
+                num: 3,
+                question: "Where is Waldo really?",
+                answers: {
+                    a: "Hiding in the jungle",
+                    b: "The second wallace monument",
+                    c: "None of your business",
+                    d: "Test D"
+                },
+                hint: "Mind it",
+                correctAnswer: "c",
+                correctNum: 2
+            }
+            ];
+            
+
+            function buildQuiz(){
+                // we'll need a place to store the HTML output
+                const output = [];
+
+                // for each question loop (generating html for each question...
+                myQuestions.forEach(
+                    (currentQuestion, questionNumber) => {
+
+                        // we'll want to store the list of answer choices
+                        const answers = [];
+
+                        // and for each available answer...
+                        for(letter in currentQuestion.answers){
+
+                        // ...add an HTML radio button
+                            answers.push(
+                            `<label>
+                                <input type="radio" name="question${questionNumber}" value="${letter}">
+                                ${letter} :
+                                ${currentQuestion.answers[letter]}
+                            </label>`
+                            );
+                        }
+
+                    // add this question and its answers to the output
+                        output.push(
+                            `<div class="questionAndChoices">
+                             <div class="checkOrX">
+                                <img id="check_mark${currentQuestion.num}" class="icon" src="media/check_mark.jpg"></img>
+                                <img id="red_x${currentQuestion.num}" class="icon" src="media/red_x.jpg"></img>
+                            </div>
+                            <div class="question" style="display: inline-block;"> ${currentQuestion.question} </div>
+                            <div class="answers">
+                            <div class="answer"> ${answers[0]} </div>
+                            <div class="answer"> ${answers[1]} </div>
+                            <div class="answer"> ${answers[2]} </div>
+                            <div class="answer"> ${answers[3]} </div>
+                            <div class="hint"> 
+                                <button onclick="javascript:showHint(${currentQuestion.num})">Click for a hint</button>
+                                <div class="hint" id="hint${currentQuestion.num}" style="display: none;">${currentQuestion.hint} </div>
+                            </div>
+                            </div>
+                            </div>`
+                            
+                        );
+                    }
+                );
+
+            // finally combine our output list into one string of HTML and put it on the page
+            quizContainer.innerHTML = output.join('');
+            }
+              
+            function showHint(n)
+            {
+                var h = document.getElementById("hint"+n);
+                if(h.style.display === "none")
+                    {
+                        h.style.display = "inline-block";
+                    }
+                else
+                    {
+                        x.style.display = "none";
+                    }
+        
+            }
+                
+
+         function showResults(){
+
+            // gather answer containers from our quiz
+            const answerContainers = quizContainer.querySelectorAll('.answers');
+
+            // keep track of user's answers
+            let numCorrect = 0;
+
+            // for each question (check answers)...
+            myQuestions.forEach( (currentQuestion, questionNumber) => {
+
+                // gets the container for all answers of that question
+                const answerContainer = answerContainers[questionNumber];
+                
+                // gets the subcontainers which are the individual answers
+                const individualAnswers = answerContainer.querySelectorAll('.answer');
+                
+                // to select the checked off answer
+                const selector = 'input[name=question'+questionNumber+']:checked';
+                
+                // temporary values to use for loop
+                let tempAns = {}.value;
+                let userAnswer = {}.value;
+                //console.log(individualAnswers);
+                
+                // goes through each individual answer
+                individualAnswers.forEach(ans => 
+                    {
+                        //console.log(ans);
+                        // checks if that answer is selected
+                        tempAns = (ans.querySelector(selector) || {}).value;
+                        if(typeof tempAns !== "undefined")
+                            {
+                                // if its not undefined (aka user chose it) save it
+                                userAnswer = tempAns;
+                                console.log(userAnswer);
+                            }
+                    });
+                //const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+                //console.log(individualAnswers);
+                //console.log(answerContainer);
+                //console.log(individualAnswers);
+                //console.log(userAnswer);
+                // if answer is correct
+                if(userAnswer===currentQuestion.correctAnswer){
+                // add to the number of correct answers
+                    numCorrect++;
+                    answerContainers[questionNumber].style.color = 'black';
+                    individualAnswers[currentQuestion.correctNum].style.color = 'green';
+                // color the answers green
+                    //answerContainers[questionNumber].style.color = 'green';
+                    let icon = document.getElementById("check_mark"+currentQuestion.num);
+                    icon.style.display = "inline-block";
+                    icon = document.getElementById("red_x"+currentQuestion.num);
+                    icon.style.display = "none";
+                }
+                // if answer is wrong or blank
+                else{
+                // color the answers red
+                    //answerContainers[questionNumber].style.color = 'red';
+                    answerContainers[questionNumber].style.color = 'black';
+                    
+                    let icon = document.getElementById("red_x"+currentQuestion.num);
+                    icon.style.display = "inline-block";
+                    icon = document.getElementById("check_mark"+currentQuestion.num);
+                    icon.style.display = "none";
+                }
+            });
+
+            // show number of correct answers out of total
+           // resultsContainer.innerHTML = `<p>${numCorrect + ' out of ' + myQuestions.length}</p>;
+        }
+
+            // display quiz right away
+            buildQuiz();
+
+            // on submit, show results
+            submitButton.addEventListener('click', showResults);
+            //resetButton.addEventListener('click', buildQuiz());
+</script>

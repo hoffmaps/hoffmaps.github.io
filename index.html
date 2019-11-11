@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Java Data Structures</title>
+        <script src="jquery.js"></script>
+        <script src="js_functions.js"></script>
+        
+        <!-- various boostrap things needed -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        
+        <!-- accordion style sheet -->
+        <script>
+            $(function(){
+                $("#sideMenu").load("accordion_menu_test.html"); 
+        });
+        </script>
+        <script> 
+        $(function(){
+            $("#includedContent").load("test.html"); 
+        });
+    </script>
+        <!-- defines some style things to make the website look good -->
+        <style>
+            /* to go across the top */
+            div.header { position: absolute; top: 0px; left: 0px; width: 100%; height: 50px; background-color: blue; }
+            
+            /* menu on the side */
+            div.menu { position: absolute; top: 0px; left: 0px; width: 115px; height: 100%; background-color: red; color: white; padding: 5px; }
+        
+            /* simple square */
+            div.square {position: absolute; top: 100px; left: 100px; width: 50px; height: 50px; background-color: white; border: 5px solid;}
+        
+            /* anything with the block class in the button tag will have these attributes */
+            button.block { display: block; padding: 5px; margin: 5px; width: 105px; }
+            
+            canvas.stage { width: 400px; height: 280px; border:5px solid; margin-left: 50px; background: white}
+            
+            /* Style the buttons that are used to open and close the accordion panel */
+            .accordion {
+                background-color: #eee;
+                color: #444;
+                cursor: pointer;
+                padding: 18px;
+                width: 50%;
+                text-align: left;
+                border: none;
+                outline: none;
+                transition: 0.4s;
+            }
+
+            /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+            .active, .accordion:hover {
+                background-color: #ccc;
+            }
+            .accordion:after {
+                content: '\02795'; /* Unicode character for "plus" sign (+) */
+                font-size: 13px;
+                color: #777;
+                float: right;
+                margin-left: 5px;
+            }
+
+            .active:after {
+                content: "\2796"; /* Unicode character for "minus" sign (-) */
+            }
+
+            /* Style the accordion panel. Note: hidden by default */
+            .panel {
+                padding: 0 18px;
+                background-color: white;
+                display: none;
+                overflow: hidden;
+            }
+        </style>
+    
+    
+    
+    
+    </head>
+    <body>
+        <!--
+        <button class="accordion">Section 1</button>
+        
+        <div class="panel">
+            <p>Lorem ipsum...</p>
+        </div>
+
+        <button class="accordion">Section 2</button>
+        <div class="panel">
+            <p>Lorem ipsum...</p>
+        </div>
+
+        <button class="accordion">Section 3</button>
+        <div class="panel">
+            <p>Lorem ipsum...</p>
+        </div>
+        <script src="js_for_accordion.js"></script>
+        -->
+        <div id="includedContent"></div>
+        
+    </body>
+
+
+</html>
+<!-- sources for things: making a basic accordion: https://www.w3schools.com/howto/howto_js_accordion.asp-->
